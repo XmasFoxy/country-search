@@ -1,5 +1,17 @@
 import { expect, it } from 'vitest';
 import { mapCountryResponse } from '../src/country.js';
+it('uses image URLs from the live API flags object when flag is an emoji', () => {
+  expect(
+    mapCountryResponse({
+      name: 'Japan',
+      flag: '🇯🇵',
+      flags: {
+        svg: 'https://flagcdn.com/jp.svg',
+        png: 'https://flagcdn.com/w320/jp.png',
+      },
+    }).flag,
+  ).toBe('https://flagcdn.com/jp.svg');
+});
 it('maps the documented API shape without changing the source', () => {
   const raw = Object.freeze({
     name: 'Spain',
