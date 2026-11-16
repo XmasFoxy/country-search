@@ -32,11 +32,14 @@ export function mapCountryResponse(raw: unknown): Country {
   if (typeof data.name !== 'string' || !data.name)
     throw new TypeError('Country name is missing');
   const region = text(data.region);
-  const flag = text(data.flag, '');
+  const flags = record(data.flags);
+  const flag = [flags.svg, flags.png, data.flag].find(
+    (value) => typeof value === 'string' && /^https:\/\//.test(value),
+  );
   return {
     id: text(data.alpha3Code, data.name),
     name: data.name,
-    flag: /^https:\/\//.test(flag) ? flag : '',
+    flag: typeof flag === 'string' ? flag : '',
     capital: text(data.capital),
     region,
     description: `${data.name} is a country in ${text(data.subregion, region)}.`,
