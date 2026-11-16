@@ -27,5 +27,7 @@ Search requires network access. Flags are loaded from the API's HTTPS URLs.
 network requests and fake timers. `npm run build` compiles ES modules using `tsc`
 and copies the static entry point and stylesheet to `dist/`.
 
-GitHub Actions validates lint, tests and compilation before deploying the
-`country-search` branch to GitHub Pages. Leave its PR into `main` unmerged.
+GitHub Pages serves the compiled application from the `gh-pages` branch. Run
+lint, tests and compilation before publishing `dist/` to that branch. The current
+GitHub token cannot create Actions workflows, so deployment uses the branch-based
+Pages builder. Leave the `country-search` PR into `main` unmerged.
